@@ -1,0 +1,49 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Build start'
+                dir('rambutan-ui-test') {
+                    sh 'chmod +x gradlew'
+                    sh './gradlew clean build -x test'
+                }
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                script {
+                    if (params.TYPE == 'smoke') {
+                        echo 'Smoke UI test run start'
+                        dir('rambutan-ui-test') {
+                            sh 'chmod +x gradlew'
+                            sh './gradlew smokeTest -i'
+                        }
+                    } else {
+                        echo 'Regression UI test run start'
+                        dir('rambutan-ui-test') {
+                            sh 'chmod +x gradlew'
+                            sh './gradlew test -i'
+                        }
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            junit 'rambutan-ui-test/build/test-results/**/*.xml'
+            archiveArtifacts 'rambutan-ui-test/**/*.*'
+            script {
+                allure([
+                        includeProperties: false,
+                        jdk: '',
+                        properties: [],
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: 'rambutan-ui-testv/build/allure-results']]
+                ])
+            }
+        }
+    }
+}

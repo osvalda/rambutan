@@ -1,0 +1,41 @@
+[
+	{
+		"name": "Passed tests",
+		"matchedStatuses": [
+			"passed"
+		]
+	},
+	{
+		"name": "Skipped tests",
+		"matchedStatuses": [
+			"skipped"
+		]
+	},
+	{
+		"name": "Product defect",
+		"matchedStatuses": [
+			"failed"
+		]
+	},
+	{
+		"name": "Element not found",
+		"traceRegex": ".*NoSuchElementException.*",
+		"matchedStatuses": [
+			"failed", "broken"
+		]
+	},
+	{
+		"name": "Condition timeout",
+		"traceRegex": ".*ConditionTimeoutException.*",
+		"matchedStatuses": [
+			"failed", "broken"
+		]
+	},
+	{
+		"name": "Broken tests",
+		"traceRegex": "Error.*",
+		"matchedStatuses": [
+			"failed"
+		]
+	}
+]

@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version "2.8.1"
+}
+
+group 'rambutan-ui-test'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+def allureVersion = "2.13.1"
+def threadNum = 1
+
+allure {
+    version = allureVersion
+    autoconfigure = true
+    aspectjweaver = true
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+test {
+    useTestNG() {
+        suites 'src/test/resources/testSuites/regression_suite.xml'
+        parallel 'classes'
+        threadCount threadNum
+    }
+}
+
+task smokeTest(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/testSuites/smoke_suite.xml'
+        parallel 'classes'
+        threadCount threadNum
+    }
+}
+
+dependencies {
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.14.0'
+    testCompile group: 'com.github.automatedowl', name: 'allure-environment-writer', version: '1.0.0'
+    testCompile group: 'org.testng', name: 'testng', version: '7.0.0'
+    testCompile group: 'org.awaitility', name: 'awaitility', version: '3.0.0'
+    testCompile 'org.projectlombok:lombok:1.18.6'
+    testCompile 'org.slf4j:slf4j-api:1.7.26'
+    testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    testCompile group: 'io.qameta.allure', name: 'allure-testng', version: allureVersion
+    testCompile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+    testCompile 'io.github.bonigarcia:webdrivermanager:3.8.1'
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.6'
+}
