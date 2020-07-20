@@ -1,7 +1,7 @@
 version: 2.1
 jobs:
   build:
-	environment:
+    environment:
       _JAVA_OPTIONS: "-Xmx3g"
       GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
     docker: 
