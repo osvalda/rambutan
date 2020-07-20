@@ -9,13 +9,13 @@ jobs:
     steps:
       - checkout
       - run: 
-        name: build api-test
-        command: |
+          name: build api-test
+          command: |
             cd rambutan-api-test
             ./gradlew clean build -x test
       - run:
-        name: run API tests
-        command: |
+          name: run API tests
+          command: |
             cd rambutan-api-test
             ./gradlew test -i
       - store_test_results:
