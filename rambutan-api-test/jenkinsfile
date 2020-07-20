@@ -1,0 +1,57 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Build start'
+                dir('api-test') {
+                    sh 'chmod +x gradlew'
+                    sh './gradlew clean build -x test'
+                }
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                script {
+                    if (params.TYPE == 'smoke') {
+                        echo 'Smoke API test run start'
+                        dir('api-test') {
+                            sh 'chmod +x gradlew'
+                            sh './gradlew smokeTest -i'
+                        }
+                    } else {
+                        echo 'Regression API test run start'
+                        dir('api-test') {
+                            sh 'chmod +x gradlew'
+                            sh './gradlew test -i'
+                        }
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            junit 'api-test/build/test-results/**/*.xml'
+            archiveArtifacts 'api-test/**/*.*'
+            script {
+                allure([
+                        includeProperties: false,
+                        jdk: '',
+                        properties: [],
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: 'api-test/build/allure-results']]
+                ])
+            }
+            publishHTML (target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: false,
+                    keepAll: true,
+                    reportDir: 'api-test',
+                    reportFiles: 'coverageReport.html',
+                    reportName: "API Coverage Report"
+            ])
+        }
+    }
+}

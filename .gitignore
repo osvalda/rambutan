@@ -33,3 +33,4 @@ build
 .idea
 out
 target
+/rambutan-api-test/coverageReport.html
