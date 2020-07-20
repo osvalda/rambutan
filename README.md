@@ -7,8 +7,6 @@
                                                                        
 [![GitHub version](https://badge.fury.io/gh/osvalda%2Frambutan.svg)](https://badge.fury.io/gh/osvalda%2Frambutan)
 
-# Daimler Trade-in Test Automation Project
-
 ## Description
 
 The repository consists of two subpackages:
