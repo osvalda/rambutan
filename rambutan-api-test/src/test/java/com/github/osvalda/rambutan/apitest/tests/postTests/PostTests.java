@@ -1,8 +1,8 @@
 package com.github.osvalda.rambutan.apitest.tests.postTests;
 
 import com.github.osvalda.rambutan.apitest.framework.BaseTest;
-import com.github.osvalda.rambutan.apitest.framework.supplementary.TestCaseSupplementary;
 import com.github.osvalda.rambutan.apitest.models.post.PostModel;
+import io.github.osvalda.pitaya.annotation.TestCaseSupplementary;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.restassured.response.Response;

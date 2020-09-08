@@ -2,9 +2,9 @@ package com.github.osvalda.rambutan.apitest.framework;
 
 import com.github.osvalda.rambutan.apitest.framework.supplementary.TestLogListener;
 import com.google.common.collect.ImmutableMap;
-import com.github.osvalda.rambutan.apitest.framework.reporting.EndpointCoverageReporter;
 
 
+import io.github.osvalda.pitaya.PitayaCoverageReporter;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import lombok.Getter;
@@ -19,7 +19,7 @@ import java.util.Properties;
 import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
 
 @Slf4j
-@Listeners({EndpointCoverageReporter.class, TestLogListener.class})
+@Listeners({PitayaCoverageReporter.class, TestLogListener.class})
 public abstract class BaseTest {
 
     protected static final String ACCESS_TOKEN = "accessToken";

@@ -57,6 +57,7 @@ dependencies {
     testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     testCompile group: 'io.qameta.allure', name: 'allure-testng', version: allureVersion
     testCompile group: 'org.freemarker', name: 'freemarker', version: '2.3.29'
+    testCompile group: 'io.github.osvalda', name:'Pitaya', version:'1.1.0'
 
     annotationProcessor 'org.projectlombok:lombok:1.18.6'
 }
